@@ -1,0 +1,16 @@
+diff -urNd glib_old-1.2.10/glib.h glib_old-1.2.10-michael/glib.h
+--- glib_old-1.2.10/glib.h	2001-02-27 13:44:38.000000000 +1000
++++ glib_old-1.2.10-michael/glib.h	2011-03-12 00:56:12.825106280 +1000
+@@ -204,7 +204,11 @@
+ #ifndef G_INLINE_FUNC
+ #  ifdef __GNUC__
+ #    ifdef __OPTIMIZE__
+-#      define G_INLINE_FUNC extern inline
++#      if __GNUC_PREREQ (4,2) && defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
++#        define G_INLINE_FUNC extern inline __attribute__ ((__gnu_inline__))
++#      else
++#        define G_INLINE_FUNC extern inline
++#      endif
+ #    else
+ #      undef G_CAN_INLINE
+ #      define G_INLINE_FUNC extern

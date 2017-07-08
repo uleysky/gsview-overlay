@@ -1,0 +1,80 @@
+diff -urNd imlib-1.9.15/gdk_imlib/io-gif.c imlib-1.9.15-iogif/gdk_imlib/io-gif.c
+--- imlib-1.9.15/gdk_imlib/io-gif.c	2017-01-15 20:00:08.162667145 +1000
++++ imlib-1.9.15-iogif/gdk_imlib/io-gif.c	2017-01-15 19:57:07.000000000 +1000
+@@ -1,7 +1,7 @@
+ #include <config.h>
+ #include "gdk_imlib.h"
+ #include "gdk_imlib_private.h"
+-#include <gifutil.h>
++
+ 
+ #ifndef HAVE_LIBGIF
+ /*------------------------*/
+@@ -11,6 +11,7 @@
+ }
+ #else
+ #include <gif_lib.h>
++#include <gifutil.h>
+ 
+ unsigned char      *
+ loader_gif(FILE *f, int *w, int *h, int *t)
+@@ -32,7 +33,7 @@
+   fd = fileno(f);
+   /* Apparently rewind(f) isn't sufficient */
+   lseek(fd, (long) 0, 0);
+-  gif = DGifOpenFileHandle(fd);
++  gif = DGifOpenFileHandle(fd,0);
+ 
+   transp = -1;
+   data = NULL;
+@@ -45,14 +46,14 @@
+     {
+       if (DGifGetRecordType(gif, &rec) == GIF_ERROR)
+ 	{
+-	  _PrintGifError(gif);
++	  _PrintGifError(gif->Error);
+ 	  rec = TERMINATE_RECORD_TYPE;
+ 	}
+       if ((rec == IMAGE_DESC_RECORD_TYPE) && (!done))
+ 	{
+ 	  if (DGifGetImageDesc(gif) == GIF_ERROR)
+ 	    {
+-	      _PrintGifError(gif);
++	      _PrintGifError(gif->Error);
+ 	      rec = TERMINATE_RECORD_TYPE;
+ 	    }
+ 	  *w = gif->Image.Width;
+@@ -64,13 +65,13 @@
+ 	  rows = malloc(*h * sizeof(GifRowType *));
+ 	  if (!rows)
+ 	    {
+-	      DGifCloseFile(gif);
++	      DGifCloseFile(gif,0);
+ 	      return NULL;
+ 	    }
+ 	  data = _gdk_malloc_image(*w, *h);
+ 	  if (!data)
+ 	    {
+-	      DGifCloseFile(gif);
++	      DGifCloseFile(gif,0);
+ 	      free(rows);
+ 	      return NULL;
+ 	    }
+@@ -81,7 +82,7 @@
+ 	      rows[i] = malloc(*w * sizeof(GifPixelType));
+ 	      if (!rows[i])
+ 		{
+-		  DGifCloseFile(gif);
++		  DGifCloseFile(gif,0);
+ 		  for (i = 0; i < *h; i++)
+ 		    if (rows[i])
+ 		      free(rows[i]);
+@@ -170,7 +171,7 @@
+ 	    }
+ 	}
+     }
+-  DGifCloseFile(gif);
++  DGifCloseFile(gif,0);
+   for (i = 0; i < *h; i++)
+     free(rows[i]);
+   free(rows);

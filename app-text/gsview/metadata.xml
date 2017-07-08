@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>printing</herd>
+<use>
+<flag name="epstool">Install app-text/epstool for creating and extracting preview images from EPS files</flag>
+<flag name="pstotext">Install app-text/pstotext for extractig text from postscript files</flag>
+</use>
+</pkgmetadata>
