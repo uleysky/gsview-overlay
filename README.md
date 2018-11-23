@@ -14,3 +14,5 @@ so the magnification can be made very large.
 
 For gsview we need gtk+-1.2 and glib-1.2. In order not to cry bloody tears, it's better to install gtk-engines,
 which depends on imlib.
+
+Also in this repository are ebuilds for the GMT (Generic Mapping Tools, http://gmt.soest.hawaii.edu/).
