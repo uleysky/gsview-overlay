@@ -35,6 +35,7 @@ PATCHES=(
 	)
 
 src_configure() {
+	eautoconf
 	local myconf=(
 		--datadir=/usr/share/${P}
 		--includedir=/usr/include/${P}
@@ -53,6 +54,7 @@ src_configure() {
 		$(use_with gshhg gshhg-dir /usr/share/gshhg)
 	)
 	econf "${myconf[@]}"
+	echo $CFLAGS
 }
 
 src_compile() {
