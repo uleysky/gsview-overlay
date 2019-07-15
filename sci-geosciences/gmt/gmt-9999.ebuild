@@ -114,16 +114,7 @@ src_install() {
 
 	# Decompress manuals
 	if use doc || use htmldoc; then
-		pushd "${ED}/usr/share/man" || die
-		local d f
-		for d in man*; do
-			pushd $d || die
-			for f in *.gz; do
-				gunzip $f || die
-			done
-			popd || die
-		done
-		popd || die
+		find "${ED}/usr/share/man" -name "*.gz" -exec gunzip {} + || die
 	fi
 
 	if use multislot; then
@@ -134,5 +125,5 @@ src_install() {
 
 	rm "${ED}/usr/bin/gmtswitch" || die
 	# Rename bash completion file
-	mv "$ED/$(get_bashcompdir)/gmt_completion.bash" "$ED/$(get_bashcompdir)/gmt" || die
+	mv "${D}/$(get_bashcompdir)/gmt_completion.bash" "${D}/$(get_bashcompdir)/gmt" || die
 }
