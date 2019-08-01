@@ -121,5 +121,5 @@ src_install() {
 
 	rm "${ED}/usr/bin/gmtswitch" || die
 	# Rename bash completion file
-	mv "${D}/$(get_bashcompdir)/gmt_completion.bash" "${D}/$(get_bashcompdir)/gmt" || die
+	mv "${D}$(get_bashcompdir)/gmt_completion.bash" "${D}$(get_bashcompdir)/gmt" || die
 }
