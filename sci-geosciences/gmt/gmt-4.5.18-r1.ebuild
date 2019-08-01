@@ -13,7 +13,7 @@ SRC_URI="
 
 LICENSE="GPL-2+ gmttria? ( Artistic )"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~arm ~arm64"
 IUSE="doc examples debug +gdal gmttria +gshhg htmldoc +metric mex +netcdf octave postscript tutorial"
 
 RDEPEND="

@@ -9,7 +9,7 @@ SRC_URI="https://www.soest.hawaii.edu/pwessel/gshhg/${P}.tar.gz"
 
 LICENSE="LGPL-3+"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~arm ~arm64"
 IUSE=""
 
 RDEPEND=""

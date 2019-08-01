@@ -11,7 +11,7 @@ SRC_URI="mirror://gmt/${P}-src.tar.xz"
 
 LICENSE="GPL-3+ gmttria? ( Artistic )"
 SLOT="5"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~arm ~arm64"
 IUSE="+dcw doc examples +fftw +gdal gmttria +gshhg htmldoc lapack multislot openmp pcre pcre2 threads tutorial"
 
 RDEPEND="

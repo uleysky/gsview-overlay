@@ -15,7 +15,7 @@ SRC_URI="ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/ghostgum/gsview-${PV}.tar.gz
 IUSE="doc epstool pstotext"
 SLOT="0"
 LICENSE="Aladdin"
-KEYWORDS="amd64 hppa ppc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 hppa ppc x86 ~amd64-linux ~x86-linux arm arm64"
 
 RDEPEND="x11-libs/gtk+:1
 	epstool? ( app-text/epstool )
