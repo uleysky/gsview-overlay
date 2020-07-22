@@ -61,10 +61,10 @@ src_compile() {
 	pushd "${BUILD_DIR}" || die
 	local havedoc="n"
 	if use doc; then
-		make -j1 docs_pdf || die
-		havedoc="y"
-	fi
-	if use htmldoc; then
+#		make -j1 docs_pdf || die
+#		havedoc="y"
+#	fi
+#	if use htmldoc; then
 		make -j1 docs_html || die
 		havedoc="y"
 	fi
