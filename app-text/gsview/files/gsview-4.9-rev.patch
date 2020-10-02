@@ -1,0 +1,12 @@
+diff -urNd gsview-4.9/src/gvcver.h gsview-4.9-rev/src/gvcver.h
+--- gsview-4.9/src/gvcver.h	2007-11-18 11:13:24.000000000 +1000
++++ gsview-4.9-rev/src/gvcver.h	2020-09-30 13:11:08.897457314 +1000
+@@ -58,7 +58,7 @@
+ #define GS_PRODUCT  "AFPL Ghostscript"
+ #define GS_REVISION_MIN   704
+ #define GS_REVISION	  704
+-#define GS_REVISION_MAX   999
++#define GS_REVISION_MAX   9999
+ 
+ #ifdef _Windows
+ #ifdef _WIN64

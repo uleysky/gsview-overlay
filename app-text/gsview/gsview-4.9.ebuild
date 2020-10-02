@@ -27,6 +27,7 @@ DEPEND="app-arch/unzip
 src_prepare() {
 	epatch "${FILESDIR}"/${PV}-gentoo.patch
 	epatch "${FILESDIR}"/${P}-libdl.patch
+	epatch "${FILESDIR}"/${P}-rev.patch
 	tc-export CC
 }
 
