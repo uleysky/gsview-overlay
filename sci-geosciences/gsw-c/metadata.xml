@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>uleysky@gmail.com</email>
+		<name>Michael Uleysky</name>
+	</maintainer>
+	<longdescription lang="en">
+		The Gibbs-SeaWater (GSW) Oceanographic Toolbox contains the TEOS-10 subroutines for evaluating
+		the thermodynamic properties of pure water (using IAPWS-09) and seawater (using IAPWS-08 for
+		the saline part). The GSW library does not provide properties of ice or moist air (these
+		properties can be found in the SIA library). This GSW Oceanographic Toolbox does not adhere
+		to strict basic-SI units but rather oceanographic units are adopted.
+	</longdescription>
+</pkgmetadata>
