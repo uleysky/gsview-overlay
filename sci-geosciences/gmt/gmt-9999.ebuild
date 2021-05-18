@@ -12,18 +12,17 @@ SRC_URI=""
 
 LICENSE="GPL-2 gmttria? ( Artistic )"
 SLOT="5"
-IUSE="+dcw doc examples +fftw +gdal gmttria +gshhg htmldoc lapack multislot openmp pcre pcre2 threads"
+IUSE="+dcw doc examples +fftw +gdal gmttria +gshhg lapack multislot openmp pcre pcre2 threads"
 
 RDEPEND="
 	!sci-biology/probcons
 	app-text/ghostscript-gpl
 	dcw? ( sci-geosciences/dcw-gmt )
 	doc? ( dev-python/sphinx )
-	doc? ( dev-tex/latexmk )
+	doc? ( dev-python/sphinx-panels )
 	fftw? ( sci-libs/fftw:3.0/3 )
 	gdal? ( sci-libs/gdal )
 	gshhg? ( sci-geosciences/gshhg-gmt )
-	htmldoc? ( dev-python/sphinx )
 	>=sci-libs/netcdf-4.1[hdf5]
 	lapack? ( virtual/lapack )
 	!multislot? ( !sci-geosciences/gmt:0 )
@@ -59,20 +58,13 @@ src_configure() {
 src_compile() {
 	cmake-utils_src_compile
 	pushd "${BUILD_DIR}" || die
-	local havedoc="n"
 	if use doc; then
-#		make -j1 docs_pdf || die
-#		havedoc="y"
-#	fi
-#	if use htmldoc; then
 		make -j1 docs_html || die
-		havedoc="y"
-	fi
-	if [ "$havedoc" == "y" ]; then
 		make -j1 docs_man || die
+
 		if use multislot; then
 			# Rename man pages to avoid a name conflict with gmt4
-			pushd doc_modern/rst/man || die
+			pushd doc/rst/man/1 || die
 			local m c suffix newc
 			for m in *.gz; do
 				c=${m%%.*}
@@ -97,10 +89,6 @@ src_compile() {
 
 src_install() {
 	cmake-utils_src_install
-	# Remove various documentation
-	if ! use doc; then
-		rm -rf "${ED}/usr/share/doc/${PF}/pdf" || die
-	fi
 
 	if use examples; then
 		docompress -x /usr/share/doc/${PF}/examples
@@ -108,12 +96,12 @@ src_install() {
 		rm -rf "${ED}/usr/share/doc/${PF}/examples" || die
 	fi
 
-	if ! use htmldoc; then
+	if ! use doc; then
 		rm -rf "${ED}/usr/share/doc/${PF}/html" || die
 	fi
 
 	# Decompress manuals
-	if use doc || use htmldoc; then
+	if use doc; then
 		find "${ED}/usr/share/man" -name "*.gz" -exec gunzip {} + || die
 	fi
 
