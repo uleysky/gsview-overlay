@@ -2,9 +2,9 @@
 # Copyright 2016-2017 Michael Uleysky
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="3"
+EAPI="7"
 
-inherit eutils toolchain-funcs
+inherit toolchain-funcs desktop
 
 MY_PV="${PV/.}"
 
@@ -24,20 +24,22 @@ RDEPEND="x11-libs/gtk+:1
 DEPEND="app-arch/unzip
 	x11-libs/gtk+:1"
 
-src_prepare() {
-	epatch "${FILESDIR}"/${PV}-gentoo.patch
-	epatch "${FILESDIR}"/${P}-libdl.patch
-	epatch "${FILESDIR}"/${P}-rev.patch
-	tc-export CC
-}
+PATCHES=(
+	"${FILESDIR}/${PV}-gentoo.patch"
+	"${FILESDIR}/${P}-libdl.patch"
+	"${FILESDIR}/${P}-rev.patch"
+)
 
-src_compile() {
+src_prepare() {
+	default
 	ln -sf srcunx/unx.mak Makefile || die
 
 	## respect CFLAGS
 	sed -i -e "s:^CFLAGS=-O :CFLAGS=${CFLAGS} :g" Makefile || die
 	sed -i -e "s:GSVIEW_DOCPATH:\"${EPREFIX}/usr/share/doc/${PF}/html/\":" srcunx/gvx.c || die
+}
 
+src_compile() {
 	## run Makefile
 	# bug #283165
 	emake -j1 || die "Error compiling files."
@@ -50,8 +52,7 @@ src_install() {
 
 	dodoc gsview.css cdorder.txt regorder.txt || die
 
-	if use doc
-	then
+	if use doc; then
 		dobin "${FILESDIR}"/gsview-help || die
 		dohtml *.htm bin/*.htm || die
 	fi
@@ -59,6 +60,5 @@ src_install() {
 	insinto /etc/gsview
 	doins src/printer.ini || die
 
-	make_desktop_entry gsview Gsview "" "Office" ||
-		die "Couldn't make gsview desktop entry"
+	make_desktop_entry gsview Gsview "" "Office" || die "Couldn't make gsview desktop entry"
 }
