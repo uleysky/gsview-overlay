@@ -2,16 +2,13 @@
 # Copyright 2016-2017 Michael Uleysky
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-GNOME_TARBALL_SUFFIX="gz"
-GNOME2_LA_PUNT="yes"
-
-inherit autotools eutils flag-o-matic gnome2 toolchain-funcs multilib-minimal
+inherit autotools eutils flag-o-matic toolchain-funcs multilib-minimal
 
 DESCRIPTION="The GIMP Toolkit"
 HOMEPAGE="http://www.gtk.org/"
-SRC_URI="${SRC_URI} http://www.ibiblio.org/gentoo/distfiles/gtk+-1.2.10-r8-gentoo.diff.bz2"
+SRC_URI="mirror://gnome/sources/${PN}/$(ver_cut 1-2)/${PN}-${PV}.tar.gz"
 
 LICENSE="LGPL-2.1+"
 SLOT="1"
@@ -35,18 +32,23 @@ PDEPEND="x11-themes/gtk-engines:1"
 
 MULTILIB_CHOST_TOOLS=(/usr/bin/gtk-config)
 
+PATCHES=(
+	"${FILESDIR}/${P}-m4.patch"
+	"${FILESDIR}/${P}-automake.patch"
+	"${FILESDIR}/${P}-cleanup.patch"
+	"${FILESDIR}/${P}-r8-gentoo.diff"
+	"${FILESDIR}/${PN}-1.2-locale_fix.patch"
+	"${FILESDIR}/${P}-as-needed.patch"
+	"${FILESDIR}/${P}-automake-1.13.patch" #467520
+	"${FILESDIR}/${P}-undef.patch"
+)
+
 src_prepare() {
+	default
 	append-cflags -std=gnu89
-	epatch "${FILESDIR}"/${P}-m4.patch
-	epatch "${FILESDIR}"/${P}-automake.patch
-	epatch "${FILESDIR}"/${P}-cleanup.patch
-	epatch "${DISTDIR}"/gtk+-1.2.10-r8-gentoo.diff.bz2
-	epatch "${FILESDIR}"/${PN}-1.2-locale_fix.patch
-	epatch "${FILESDIR}"/${P}-as-needed.patch
 	sed -i '/libtool.m4/,/AM_PROG_NM/d' acinclude.m4 #168198
-	epatch "${FILESDIR}"/${P}-automake-1.13.patch #467520
+	mv configure.in configure.ac || die
 	eautoreconf
-	gnome2_src_prepare
 }
 
 multilib_src_configure() {
@@ -61,7 +63,7 @@ multilib_src_configure() {
 	fi
 
 	ECONF_SOURCE="${S}" \
-	gnome2_src_configure \
+	econf \
 		--disable-static \
 		--sysconfdir="${EPREFIX}"/etc \
 		--with-xinput=xfree \
@@ -70,20 +72,12 @@ multilib_src_configure() {
 		GLIB_CONFIG="/usr/bin/${CHOST}-glib-config"
 }
 
-multilib_src_compile() {
-	emake CC="$(tc-getCC)"
-}
-
-multilib_src_install() {
-	gnome2_src_install
-}
-
 multilib_src_install_all() {
 	einstalldocs
 	docinto docs
 	cd docs
 	dodoc *.txt *.gif text/*
-	dohtml -r html
+	dodoc -r html
 
 	#install nice, clean-looking gtk+ style
 	insinto /usr/share/themes/Gentoo/gtk

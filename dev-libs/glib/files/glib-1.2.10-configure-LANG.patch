@@ -3,8 +3,8 @@ option parsing, it may break.
 
 http://bugs.gentoo.org/133679
 
---- configure
-+++ configure
+--- a/configure
++++ b/configure
 @@ -54,6 +54,19 @@
  infodir='${prefix}/info'
  mandir='${prefix}/man'

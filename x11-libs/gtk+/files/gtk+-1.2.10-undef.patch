@@ -1,0 +1,12 @@
+diff -urNd gtk+-1.2.10/gdk/gdkrgb.c gtk+-1.2.10-undef/gdk/gdkrgb.c
+--- gtk+-1.2.10/gdk/gdkrgb.c	2001-02-20 03:11:02.000000000 +1000
++++ gtk+-1.2.10-undef/gdk/gdkrgb.c	2022-01-17 13:55:41.439353037 +1000
+@@ -1084,7 +1084,7 @@
+       DM_565 = g_new (guint32, DM_WIDTH * DM_HEIGHT);
+       for (i = 0; i < DM_WIDTH * DM_HEIGHT; i++)
+ 	{
+-	  dith = DM[0][i] >> 3;
++	  dith = DM[i/DM_WIDTH][i%DM_WIDTH] >> 3;
+ 	  DM_565[i] = (dith << 20) | dith | (((7 - dith) >> 1) << 10);
+ #ifdef VERBOSE
+ 	  g_print ("%i %x %x\n", i, dith, DM_565[i]);

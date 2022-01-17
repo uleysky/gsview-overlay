@@ -2,17 +2,13 @@
 # Copyright 2016-2017 Michael Uleysky
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
-GNOME_TARBALL_SUFFIX="gz"
-GNOME2_LA_PUNT="yes"
+EAPI=7
 
-inherit autotools eutils gnome2 libtool flag-o-matic portability multilib-minimal
+inherit autotools eutils libtool flag-o-matic portability multilib-minimal
 
 DESCRIPTION="The GLib library of C routines"
 HOMEPAGE="http://www.gtk.org/"
-SRC_URI="${SRC_URI}
-	 mirror://gentoo/glib-1.2.10-r1-as-needed.patch.bz2
-"
+SRC_URI="mirror://gnome/sources/${PN}/$(ver_cut 1-2)/${PN}-${PV}.tar.gz"
 
 LICENSE="LGPL-2.1+"
 SLOT="1"
@@ -24,23 +20,18 @@ RDEPEND=""
 
 MULTILIB_CHOST_TOOLS=(/usr/bin/glib-config)
 
+PATCHES=(
+	"${FILESDIR}/${P}-automake.patch"
+	"${FILESDIR}/${P}-m4.patch"
+	"${FILESDIR}/${P}-configure-LANG.patch" #133679
+	"${FILESDIR}/${P}-gcc34-fix.patch" #47047
+	"${FILESDIR}/${P}-as-needed.patch" #133818
+	"${FILESDIR}/${P}-automake-1.13.patch"
+	"${FILESDIR}/${P}-inline.patch"
+)
+
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-automake.patch
-	epatch "${FILESDIR}"/${P}-m4.patch
-	epatch "${FILESDIR}"/${P}-configure-LANG.patch #133679
-
-	# Allow glib to build with gcc-3.4.x #47047
-	epatch "${FILESDIR}"/${P}-gcc34-fix.patch
-
-	# Fix for -Wl,--as-needed (bug #133818)
-	epatch "${DISTDIR}"/glib-1.2.10-r1-as-needed.patch.bz2
-
-	# build failure with automake-1.13
-	epatch "${FILESDIR}/${P}-automake-1.13.patch"
-	
-	# fix problem with inline functions
-	epatch "${FILESDIR}/${P}-inline.patch"
-
+	default
 	use ppc64 && use hardened && replace-flags -O[2-3] -O1
 	sed -i "/libglib_la_LDFLAGS/i libglib_la_LIBADD = $(dlopen_lib)" Makefile.am || die
 
@@ -50,7 +41,6 @@ src_prepare() {
 
 	eautoreconf
 	elibtoolize
-	gnome2_src_prepare
 }
 
 multilib_src_configure() {
@@ -63,19 +53,19 @@ multilib_src_configure() {
 	append-cflags -std=gnu89
 
 	ECONF_SOURCE="${S}" \
-	gnome2_src_configure \
+	econf \
 		--with-threads=posix \
-		--enable-debug=yes \
+		--enable-debug=no \
 		$(use_enable static-libs static)
 }
 
 multilib_src_install() {
-	gnome2_src_install
-
+	default
 	chmod 755 "${ED}"/usr/$(get_libdir)/libgmodule-1.2.so.* || die
 }
 
 multilib_src_install_all() {
 	einstalldocs
-	dohtml -r docs
+	docinto html
+	dodoc -r docs/*.html
 }
