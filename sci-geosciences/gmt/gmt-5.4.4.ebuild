@@ -1,9 +1,9 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit bash-completion-r1 cmake-utils
+inherit bash-completion-r1 cmake
 
 DESCRIPTION="Powerful map generator"
 HOMEPAGE="https://gmt.soest.hawaii.edu/"

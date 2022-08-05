@@ -18,7 +18,7 @@ else
 	KEYWORDS="~amd64 ~x86 ~arm ~arm64"
 fi
 
-inherit cmake-utils ${INHERIT_GIT}
+inherit cmake ${INHERIT_GIT}
 
 LICENSE="Artistic"
 SLOT="0"
