@@ -75,11 +75,11 @@ src_configure() {
 	use lapack || mycmakeargs+=( -DGMT_EXCLUDE_LAPACK=yes )
 	use pcre || mycmakeargs+=( -DGMT_EXCLUDE_PCRE=yes )
 	use pcre2 || mycmakeargs+=( -DGMT_EXCLUDE_PCRE2=yes )
-	cmake-utils_src_configure
+	cmake_src_configure
 }
 
 src_install() {
-	cmake-utils_src_install
+	cmake_src_install
 	# Remove various documentation
 	if ! use doc; then
 		rm -rf "${ED}/usr/share/doc/${PF}/pdf" || die

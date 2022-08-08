@@ -32,5 +32,5 @@ src_prepare() {
 		-e "/DESTINATION/s:lib:$(get_libdir):g" \
 		-e "/INSTALL/s:lib:$(get_libdir):g" \
 		-i CMakeLists.txt || die
-	cmake-utils_src_prepare
+	cmake_src_prepare
 }
