@@ -1,7 +1,7 @@
 # Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=8
 inherit autotools multilib-minimal
 
 PVP=(${PV//[-\._]/ })
@@ -56,10 +56,10 @@ multilib_src_configure() {
 }
 
 multilib_src_install() {
-	emake DESTDIR="${D}" install
 	# fix target=@gdk-target@ in pkgconfig, bug #499268
 	sed -e '/^target=/d' \
-		-i "${ED}"usr/$(get_libdir)/pkgconfig/imlib.pc || die
+		-i imlib.pc || die
+	emake DESTDIR="${D}" install
 }
 
 multilib_src_install_all() {

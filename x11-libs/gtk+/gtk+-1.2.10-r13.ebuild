@@ -1,10 +1,10 @@
 # Copyright 1999-2015 Gentoo Foundation
-# Copyright 2016-2017 Michael Uleysky
+# Copyright 2016-2023 Michael Uleysky
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-inherit autotools eutils flag-o-matic toolchain-funcs multilib-minimal
+inherit autotools flag-o-matic toolchain-funcs multilib-minimal
 
 DESCRIPTION="The GIMP Toolkit"
 HOMEPAGE="http://www.gtk.org/"

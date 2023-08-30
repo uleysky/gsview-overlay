@@ -1,8 +1,8 @@
 # Copyright 1999-2006 Gentoo Foundation
-# Copyright 2016-2017 Michael Uleysky
+# Copyright 2016-2023 Michael Uleysky
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=8
 inherit autotools
 
 DESCRIPTION="GTK+1 standard engines and themes"

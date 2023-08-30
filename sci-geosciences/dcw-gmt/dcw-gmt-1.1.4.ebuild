@@ -1,7 +1,7 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=8
 
 DESCRIPTION="The Digital Chart of the World for GMT 5 or later"
 HOMEPAGE="https://www.soest.hawaii.edu/wessel/dcw/"

@@ -1,10 +1,10 @@
 # Copyright 1999-2015 Gentoo Foundation
-# Copyright 2016-2017 Michael Uleysky
+# Copyright 2016-2023 Michael Uleysky
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-inherit autotools eutils libtool flag-o-matic portability multilib-minimal
+inherit autotools libtool flag-o-matic portability multilib-minimal
 
 DESCRIPTION="The GLib library of C routines"
 HOMEPAGE="http://www.gtk.org/"
