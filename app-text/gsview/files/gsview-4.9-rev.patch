@@ -6,7 +6,7 @@ diff -urNd gsview-4.9/src/gvcver.h gsview-4.9-rev/src/gvcver.h
  #define GS_REVISION_MIN   704
  #define GS_REVISION	  704
 -#define GS_REVISION_MAX   999
-+#define GS_REVISION_MAX   9999
++#define GS_REVISION_MAX   99999
  
  #ifdef _Windows
  #ifdef _WIN64
