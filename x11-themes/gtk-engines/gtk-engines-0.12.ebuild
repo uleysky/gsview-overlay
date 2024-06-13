@@ -16,7 +16,7 @@ IUSE=""
 
 DEPEND="=x11-libs/gtk+-1.2*
 	>=media-libs/imlib-1.8
-	!>media-libs/imlib-1.9.15-r8"
+	!>media-libs/imlib-1.9.15-r9"
 
 src_prepare() {
 	default

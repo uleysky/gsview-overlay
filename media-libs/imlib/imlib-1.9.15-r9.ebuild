@@ -12,7 +12,7 @@ SRC_URI="mirror://gnome/sources/${PN}/$(ver_cut 1-2)/${P}.tar.bz2
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~riscv ~sparc ~x86"
+KEYWORDS="~alpha amd64 arm ~arm64 ~hppa ~ia64 ~mips ppc ppc64 ~riscv sparc x86"
 IUSE="static-libs"
 
 RDEPEND="
@@ -41,6 +41,7 @@ PATCHES=(
 	"${FILESDIR}"/${P}-no-LDFLAGS-in-pc.patch
 	"${FILESDIR}"/${P}-giflib51-{1,2}.patch #538976
 	"${FILESDIR}"/${P}-iogif.patch
+	"${FILESDIR}"/${P}-c99-configure.patch #898234
 )
 
 src_prepare() {
