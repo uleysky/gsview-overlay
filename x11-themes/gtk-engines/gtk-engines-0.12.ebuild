@@ -11,7 +11,7 @@ SRC_URI="mirror://gnome/sources/${PN}/${PV}/${PN}-${PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="1"
-KEYWORDS="alpha amd64 arm hppa ia64 mips ppc ppc64 sh sparc x86"
+KEYWORDS="alpha amd64 arm arm64 hppa ia64 mips ppc ppc64 sh sparc x86"
 IUSE=""
 
 DEPEND="=x11-libs/gtk+-1.2*
