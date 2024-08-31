@@ -18,6 +18,10 @@ DEPEND="=x11-libs/gtk+-1.2*
 	>=media-libs/imlib-1.8
 	!>media-libs/imlib-1.9.15-r9"
 
+PATCHES=(
+	"${FILESDIR}/${P}-strcmp.patch"
+)
+
 src_prepare() {
 	default
 	mv configure.in configure.ac || die
