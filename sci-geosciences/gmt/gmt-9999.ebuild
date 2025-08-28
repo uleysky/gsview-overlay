@@ -36,6 +36,7 @@ DEPEND="${RDEPEND}"
 REQUIRED_USE="?? ( pcre pcre2 )"
 
 src_configure() {
+	append-cflags -mno-fma # Triangulate sometimes does'nt work with it
 	local mycmakeargs=(
 		-DLICENSE_RESTRICTED="$(usex gmttria no yes)"
 		-DGMT_OPENMP="$(usex openmp)"
